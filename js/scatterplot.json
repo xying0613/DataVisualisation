@@ -1,6 +1,6 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "data": {"url": "https://raw.githubusercontent.com/hawxiaoying/DataVisualisation2/main/data/complete.json"},
+  "data": {"url": "https://raw.githubusercontent.com/xying0613/DataVisualisation/main/data/complete.json"},
   "width": 800,
   "height": 500,    
   "layer": [

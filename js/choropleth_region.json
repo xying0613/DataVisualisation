@@ -50,7 +50,7 @@
 
         {
             "data": {
-                "url": "https://raw.githubusercontent.com/hawxiaoying/DataVisualisation2/main/data/map.topojson",
+                "url": "https://raw.githubusercontent.com/xying0613/DataVisualisation/main/data/map.topojson",
                 "format": {
                     "type": "topojson", 
                     "feature": "ne_110m_admin_0_countries"
@@ -106,14 +106,14 @@
             ],
 
             "data": {
-                      "url": "https://raw.githubusercontent.com/hawxiaoying/DataVisualisation2/main/data/mapregion.csv"
+                      "url": "https://raw.githubusercontent.com/xying0613/DataVisualisation/main/data/mapregion.csv"
             },
             "transform": [
                 {
                     "lookup": "Entity",
                     "from": {
                         "data": {
-                            "url": "https://raw.githubusercontent.com/hawxiaoying/DataVisualisation2/main/data/map.topojson",
+                            "url": "https://raw.githubusercontent.com/xying0613/DataVisualisation/main/data/map.topojson",
                             "format": {
                                 "type": "topojson",
                                 "feature": "ne_110m_admin_0_countries"
