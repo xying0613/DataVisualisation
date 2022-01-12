@@ -1,0 +1,68 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": 250,
+  "height": 250,
+  "data": {
+    "url":"https://raw.githubusercontent.com/hawxiaoying/DataVisualisation2/main/data/overweight_gender_2016.csv"
+  },
+  "layer": [
+    {
+      "params": [
+        {
+          "name": "highlight",
+          "select": {
+            "type": "point",
+            "toggle": false,
+            "on": "mouseover"
+          }
+        }
+      ],
+      "mark": {
+        "type": "arc", 
+        "innerRadius": 50, 
+        "strokeWidth": 3
+      }
+    },
+
+    {
+      "mark": {
+        "type": "text", 
+        "radiusOffset": 10
+      },
+      "encoding": {
+        "text": {
+          "field": "Percentage", 
+          "type": "quantitative"
+        }
+      }
+    }
+  ],
+
+  "encoding": {
+    "theta": {"field": "Percentage", "type": "quantitative", "stack": true},
+    "radius": {"field": "Percentage", "scale": {"type": "sqrt"}},
+    "color": {
+      "field": "Gender", 
+      "type": "nominal", 
+      "scale":{
+        "domain":["Female","Male"],
+        "range":["#f678a7","#62aec5"]
+        },
+        "legend":{
+          "orient": "none",
+          "legendX": 100,
+          "legendY": 100
+        }
+      },
+    "stroke": {
+      "condition": { 
+        "test":{
+          "param": "highlight", 
+          "empty": false
+        },
+        "value": "black"
+      },
+      "value": null
+    }
+  }
+}

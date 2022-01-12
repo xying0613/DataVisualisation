@@ -1,0 +1,401 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "data": {"url": "https://raw.githubusercontent.com/hawxiaoying/DataVisualisation2/main/data/complete.json"},
+  "width": 800,
+  "height": 500,    
+  "layer": [
+    {
+      "transform": [
+        {"filter": {"field": "Entity", "equal": "Afghanistan"}},
+        {"filter": {"param": "year_select"}}
+      ],
+      "mark": {
+        "type": "text",
+        "fontSize": 100,
+        "x": 420,
+        "y": 250,
+        "opacity": 0.2
+      },
+      "encoding": {"text": {"field": "Year"}}
+    },
+
+    {
+      "encoding": {
+        "x": {
+          "field": "Both(Obesity)",
+          "type": "quantitative",
+          "axis": {"tickCount": 5, "title": "Obesity Prevalence", "titleFontSize":15},
+          "scale": {"domain": [0,70]}
+        },
+        "y": {
+          "field": "Both(Overweight)",
+          "type": "quantitative",
+          "axis": {"tickCount": 5, "title": "Overweight Prevalence", "titleFontSize":15},
+          "scale": {"domain": [0,100]}
+        }
+      },
+      
+      "layer": [
+        {
+          "mark": {
+            "type": "line",
+            "size": 4,
+            "color": "lightgray",
+            "strokeCap": "round"
+          },
+          "encoding": {
+            "detail": {"field": "Entity"},
+            "order": {"field": "Year"},
+            "opacity": {
+              "condition": {
+                "test": {"or": [
+                  {"param": "hovered", "empty": false},
+                  {"param": "clicked", "empty": false}
+                ]},
+                "value": 0.8
+              },
+              "value": 0
+            }
+          }
+        },
+
+        {
+          "params": [
+            {
+              "name": "year_select",
+              "value": [{"Year": 2016}],
+              "select": {
+                "type": "point",
+                "fields": ["Year"]
+              },
+              "bind": {
+                "name": "Year: ",
+                "input": "range",
+                "min": 1975, "max": 2016, "step": 1
+              }
+            },
+            {
+              "name": "continent_selection",
+              "select": {"type":"point", "fields":["WHO region"]},
+              "bind": {
+                "input": "select",
+                "options": [
+                  null,
+                  "Africa",
+                  "Americas",
+                  "Eastern Mediterranean",
+                  "Europe",
+                  "South-East Asia",
+                  "Western Pacific"
+                ],
+                "labels":[
+                  "Show All",
+                  "Africa",
+                  "Americas",
+                  "Eastern Mediterranean",
+                  "Europe",
+                  "South-East Asia",
+                  "Western Pacific"
+                ],
+                "name": "Region: "
+              }
+            },
+            {
+              "name": "hovered",
+              "select": {
+                "type": "point",
+                "fields": ["Entity"],
+                "toggle": false,
+                "on": "mouseover"
+              }
+            },
+            {
+              "name": "clicked",
+              "select": {"type": "point", "fields": ["Entity"]}
+            }
+          ],
+
+          "transform": [
+            {"filter": {"param": "year_select"}}
+            ],
+          
+          "mark": {
+            "type": "circle", 
+            "size": 100
+          },
+          "encoding": {
+            "stroke": {
+              "condition": {
+                "test": {"or": [
+                  {"param": "hovered", "empty": false},
+                  {"param": "clicked", "empty": false}
+                ]},
+                "value": "black"
+              },
+              "value": null
+            },
+            "fillOpacity": {
+              "condition": {"param": "clicked", "value": 1},
+              "value": 0.3
+            },
+            "opacity":{
+              "condition":{"param":"continent_selection", "value": 0.5},
+              "value":0
+            },
+            "size":{
+              "field": "Count",
+              "type": "quantitative",
+              "title":"Population",
+              "scale": {
+                "type": "threshold",
+                "domain": [1000000, 10000000, 50000000, 100000000],
+                "range": [50, 100, 200, 400, 800]
+              },
+              "legend": {
+                "format": ".1s",
+                "orient": "none",
+                "legendX": 670,
+                "legendY": 370,
+                "fillColor":"white"
+              }
+            },
+            "color": {
+              "field": "WHO region",
+              "title": "Region",
+              "scale": {
+                "range":["#D81B60","#1E88E5","#FFC107","#1BCAD8","#FF7300","#9467BD"]
+              },
+              "legend":{
+                "orient": "none",
+                "legendX": 670,
+                "legendY": 260,
+                "fillColor":"white"
+              }
+            },
+            "tooltip":[
+              {"field":"Entity", "title":"Country"},
+              {"field":"Both(Overweight)","type": "quantitative", "title":"Overweight Prevalence"},
+              {"field":"Both(Obesity)","type": "quantitative", "title":"Obesity Prevalence"}
+              ]
+          }
+        },
+
+        {
+          "transform": [
+            {"filter": {"param": "year_select"}}
+          ],
+
+          "encoding": {
+            "text": {"field": "Entity"},
+            "color": {"value": "black"}
+          },
+
+          "layer": [
+              {
+                  "mark": {
+                    "type": "text",
+                    "yOffset": -12,
+                    "fontSize": 12,
+                    "fontWeight": "bold"
+                  },
+
+                  "encoding": {
+                      "fillOpacity": {
+                        "condition": {"param": "clicked", "value": 1},
+                        "value": 0.3
+                        },
+                      "opacity":{
+                        "condition":{"param":"continent_selection", "value": 1},
+                        "value":0
+                        },
+                      "text":{
+                          "condition":{
+                              "test": "datum['Entity'] === 'Malaysia'", "value": "Malaysia"
+                          }
+                      }
+                  }
+              },
+
+              {
+                  "mark": {
+                    "type": "text",
+                    "yOffset": -12,
+                    "fontSize": 12,
+                    "fontWeight": "bold"
+                  },
+
+                  "encoding": {
+                      "fillOpacity": {
+                        "condition": {"param": "clicked", "value": 1},
+                        "value": 0.3
+                        },
+                      "opacity":{
+                        "condition":{"param":"continent_selection", "value": 1},
+                        "value":0
+                        },
+                      "text":{
+                          "condition":{
+                              "test": "datum['Entity'] === 'Australia'", "value": "Australia"
+                          }
+                      }
+                  }
+              },
+
+              {
+                  "mark": {
+                    "type": "text",
+                    "yOffset": -12,
+                    "fontSize": 12,
+                    "fontWeight": "bold"
+                  },
+
+                  "encoding": {
+                      "fillOpacity": {
+                        "condition": {"param": "clicked", "value": 1},
+                        "value": 0.3
+                        },
+                      "opacity":{
+                        "condition":{"param":"continent_selection", "value": 1},
+                        "value":0
+                        },
+                      "text":{
+                          "condition":{
+                              "test": "datum['Entity'] === 'Mexico'", "value": "Mexico"
+                          }
+                      }
+                  }
+              },
+
+              {
+                  "mark": {
+                    "type": "text",
+                    "yOffset": -10,
+                    "fontSize": 12,
+                    "fontWeight": "bold"
+                  },
+
+                  "encoding": {
+                      "fillOpacity": {
+                        "condition": {"param": "clicked", "value": 1},
+                        "value": 0.3
+                        },
+                      "opacity":{
+                        "condition":{"param":"continent_selection", "value": 1},
+                        "value":0
+                        },
+                      "text":{
+                          "condition":{
+                              "test": "datum['Entity'] === 'France'", "value": "France"
+                          }
+                      }
+                  }
+              },
+
+              {
+                  "mark": {
+                    "type": "text",
+                    "yOffset": -10,
+                    "fontSize": 12,
+                    "fontWeight": "bold"
+                  },
+
+                  "encoding": {
+                      "fillOpacity": {
+                        "condition": {"param": "clicked", "value": 1},
+                        "value": 0.3
+                        },
+                      "opacity":{
+                        "condition":{"param":"continent_selection", "value": 1},
+                        "value":0
+                        },
+                      "text":{
+                          "condition":{
+                              "test": "datum['Entity'] === 'Iran'", "value": "Iran"
+                          }
+                      }
+                  }
+              },
+
+              {
+                  "mark": {
+                    "type": "text",
+                    "yOffset": -10,
+                    "fontSize": 12,
+                    "fontWeight": "bold"
+                  },
+
+                  "encoding": {
+                      "fillOpacity": {
+                        "condition": {"param": "clicked", "value": 1},
+                        "value": 0.3
+                        },
+                      "opacity":{
+                        "condition":{"param":"continent_selection", "value": 1},
+                        "value":0
+                        },
+                      "text":{
+                          "condition":{
+                              "test": "datum['Entity'] === 'South Africa'", "value": "South Africa"
+                          }
+                      }
+                  }
+              },
+
+              {
+                  "mark": {
+                    "type": "text",
+                    "yOffset": -10,
+                    "fontSize": 12,
+                    "fontWeight": "bold"
+                  },
+
+                  "encoding": {
+                      "fillOpacity": {
+                        "condition": {"param": "clicked", "value": 1},
+                        "value": 0.3
+                        },
+                      "opacity":{
+                        "condition":{"param":"continent_selection", "value": 1},
+                        "value":0
+                        },
+                      "text":{
+                          "condition":{
+                              "test": "datum['Entity'] === 'North Korea'", "value": "North Korea"
+                          }
+                      }
+                  }
+              }
+          ]
+        },
+
+        {
+          "transform": [
+            {"filter": {"param": "hovered", "empty": false}},
+            {"filter": {"not": {"param": "year_select"}}}
+          ],
+          "layer": [
+            {
+              "mark": {
+                "type": "text",
+                "yOffset": -8,
+                "fontSize": 9,
+                "color": "gray"
+              },
+              "encoding": {"text": {"condition":{"test": "datum['Year'] === 2016", "value": "2016"}}}
+            },
+            {
+              "mark": {
+                "type": "text",
+                "yOffset": -8,
+                "fontSize": 9,
+                "color": "gray"
+              },
+              "encoding": {"text": {"condition":{"test": "datum['Year'] === 1975", "value": "1975"}}}
+            },
+            {"mark": {"type": "circle", "color": "gray", "opacity":0.3}}
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Data Visualisation 2</title>
+    <!--Styles-->
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+    <!--VegaLite-->
+    <script src="https://cdn.jsdelivr.net/npm/vega@5.20.2"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-lite@5.1.1"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-embed@6.18.2"></script>
+
+    <!--Fonts-->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+  </head>
+
+
+  <body>
+    <!-- TOP BANNER -->
+    <div class="w3-top">
+      <div class="w3-row w3-padding w3-black" style="font-family: 'Roboto', sans-serif;">
+        <div class="w3-col s3">
+          <a href="#home" class="w3-button w3-block w3-black">HOME</a>
+        </div>
+        <div class="w3-col s3">
+          <a href="#world" class="w3-button w3-block w3-black">WORLD</a>
+        </div>
+        <div class="w3-col s3">
+          <a href="#region" class="w3-button w3-block w3-black">REGION</a>
+        </div>
+        <div class="w3-col s3">
+          <a href="#country" class="w3-button w3-block w3-black">COUNTRY</a>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- Home -->
+    <div id="home" class="center-align-title">
+      <h1 class="title">
+        Overweight & Obesity
+      </h1>
+      <br/> 
+      <div>
+        <img src="data/underweight.png" width=auto height=300/>
+        <img src="data/normal.png" width=auto height=300/>
+        <img src="data/overweight.png" width=auto height=300/>
+        <img src="data/obesity.png" width=auto height=300/>
+      </div>
+      <pre style="text-align: left; padding-left: 20%; font-family: 'Roboto', sans-serif; font-size: 18px;">
+         <span style="color: blue;">Underweight</span>                                   <span style="color: green;">Normal</span>                                       <span style="color: orange;">Overweight</span>                                       <span style="color: red;">Obesity</span>
+         <i>BMI is &lt;18.5</i>                          <i>BMI is 18.5 to &lt;25</i>                       <i>BMI is 25.0 to &lt;30</i>                               <i>BMI is &gt;30</i>
+      </pre>
+      <p>
+        Body Mass Index (BMI) is a screening tool for overweight and 
+        obesity. <br/> It is a person’s weight in kilograms divided by the 
+        square of height in meters (kg/m<sup>2</sup>). 
+      </p>
+    </div>
+
+
+    <!-- World -->
+    <div id="world"><br/><br/></div>
+    <div id="world_content">
+      <h1 class="subtitle">
+        World
+      </h1>
+
+    <div class="centerbox">
+      <div class="tab shadow">
+        <button class="tablinks" onclick="openTab(event, 'Overweight')" id="defaultOpen">Overweight</button>
+        <button class="tablinks" onclick="openTab(event, 'Obesity')">Obesity</button>
+      </div>
+
+      <div id="Overweight" class="tabcontent shadow">
+        <h3 class="subsubtitle" style="padding-top: 1%;">
+          Overweight Prevalence of Adults (1975 to 2016) <br/>
+        </h3>
+        <div id="multiples_overweight" style="padding-left: 2.7%; text-align: center;"></div>
+        <div id="choropleth_overweight" style="text-align: left; padding-left: 3%;"></div>
+        <p style="font-size: 17px; text-align: center;">
+          The global estimated prevalence of overweight adults was only 
+          <strong style="color: orange; font-size: 20px;">21.5%</strong> in <strong>1975</strong>.
+          <br/>
+          In <strong>2016</strong>, it reached <strong style="color: orange; font-size: 20px;">38.9%</strong>, 
+          <strong style="color: #E4580B; font-size: 20px;">1.9 billion</strong> overweight adults in total. 
+          <br/>
+          <br/>
+          Among the overweight adults, the ratio of <span style="color: #62aec5;">males</span>
+          and <span style="color: #f678a7;">females</span> is shown below.
+        </p>
+        <div id="gender_overweight" style="padding-left: 2.7%;"></div>
+      </div>
+
+      <div id="Obesity" class="tabcontent shadow">
+        <h3 class="subsubtitle" style="padding-top: 1%;">
+          Obesity Prevalence of Adults (1975 to 2016) <br/>
+        </h3>
+        <div id="multiples_obesity" style="padding-left: 2.7%;"></div>
+        <div id="choropleth_obesity" style="text-align: left; padding-left: 3%;"></div>
+        <p style="font-size: 17px; text-align: center;">
+          Back in <strong>1975</strong>, the obesity prevalence is only 
+          <strong style="color: red; font-size: 20px;">4.7%</strong>. 
+          <br/>
+          In <strong>2016</strong>, <strong style="color: red; font-size: 20px;">13.1%</strong> 
+          of adults (over <strong style="color: #CC1E1F; font-size: 20px;">650 million</strong>) 
+          were obese. 
+          <br/>
+          <br/>
+          Among the obese adults, the ratio of <span style="color: #62aec5;">males</span>
+          and <span style="color: #f678a7;">females</span> is shown below.
+        </p>
+        <div id="gender_obesity" style="padding-left: 2.7%;"></div>
+      </div>
+    </div>
+    <br/>
+
+
+    <!-- Region -->
+    <div id="region"><br/><br/></div>
+    <h1 class="subtitle">
+      Region
+    </h1>
+    <h3 class="subsubtitle">
+      Contries and Their Corresponding Region
+    </h3>
+    <div class="outer">
+      <div id="choropleth_region" style="padding-left: 2.3%;"></div>
+    </div>
+
+    <br/>
+    <br/>
+
+    <h3 class="subsubtitle" style="padding-top: 2%;">
+      Prevalence of Overweight and Obesity of Each Region
+    </h3>
+    <div class="outer">
+      <div id="heatmap"></div>
+      <p style="padding-right: 21%; padding-left: 21%; text-align: justify;">
+        <br/>
+        <strong style="color: #1E88E5;">Americas</strong> has the highest rate of 
+        overweight and obesity, followed by <strong style="color: #1BCAD8;">Europe</strong> 
+        and <strong style="color: #FFC107;">Eastern Mediterranean</strong>. These three regions were the
+        regions with <strong>highest prevalence of overweight and obesity</strong> since 1975 to 2016.
+      </p>    
+    </div>
+
+    <br/>
+
+    
+    <!-- Country -->
+    <div id="country"><br/><br/></div>
+    <div id="country_content">
+      <h1 class="subtitle">
+        Country
+      </h1>
+      <h3 class="subsubtitle" style="padding-top: 1%;">
+        Overweight and Obesity Prevalence of Adults of Each Country
+      </h3>
+      
+      <div class="outer">
+        <div id="scatterplot" style="font-family: 'Roboto', sans-serif; "></div>
+        <p style="padding-left: 20%; padding-right: 20%; text-align: justify;">
+          <br/>
+          Countries in <strong style="color: #9467BD;">Western Pacific</strong> with low 
+          population have <strong>very high prevalence of overweight and obesity</strong> 
+          adults from 1975 to 2016. The area of the countries are very 
+          <span style="font-size: small;">small</span> such that 
+          we are unable to view them in the previous world maps. 
+          <br/>
+        </p>
+      <br/>
+      </div>
+      
+    </div>
+
+    <!-- Visualisation -->
+    <p class="my">
+      <br/>
+      <br/>
+      <br/>
+      &copy; 2021 Haw Xiao Ying. Copyright reserved.
+      <br/>
+      <span style="font-size: smaller;">Datasets from <a href="https://github.com/owid">Our World in Data</a></span>
+      <br/>
+      <br/>
+      <br/>
+      <br/>
+    </p>
+
+    <script type="text/javascript">
+      var multiples_obesity = 'js/multiples_obesity.json';
+      vegaEmbed('#multiples_obesity', multiples_obesity);
+
+      var choropleth_obesity = 'js/choropleth_obesity.json';
+      vegaEmbed('#choropleth_obesity', choropleth_obesity);
+
+      var multiples_overweight = 'js/multiples_overweight.json';
+      vegaEmbed('#multiples_overweight', multiples_overweight);
+
+      var choropleth_overweight = 'js/choropleth_overweight.json';
+      vegaEmbed('#choropleth_overweight', choropleth_overweight);
+
+      var gender_overweight = 'js/gender_overweight.json';
+      vegaEmbed('#gender_overweight', gender_overweight);
+
+      var gender_obesity = 'js/gender_obesity.json';
+      vegaEmbed('#gender_obesity', gender_obesity);
+
+      var choropleth_region = 'js/choropleth_region.json';
+      vegaEmbed('#choropleth_region', choropleth_region);
+
+      var heatmap = 'js/heatmap.json';
+      vegaEmbed('#heatmap', heatmap);
+
+      var scatterplot = 'js/scatterplot.json';
+      vegaEmbed('#scatterplot', scatterplot);
+    </script>
+
+
+
+    <script>
+      function openTab(evt, type) {
+        var i, tabcontent, tablinks;
+        tabcontent = document.getElementsByClassName("tabcontent");
+        for (i = 0; i < tabcontent.length; i++) {
+          tabcontent[i].style.display = "none";
+        }
+        tablinks = document.getElementsByClassName("tablinks");
+        for (i = 0; i < tablinks.length; i++) {
+          tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+        document.getElementById(type).style.display = "block";
+        evt.currentTarget.className += " active";
+      }
+      
+      // Get the element with id="defaultOpen" and click on it
+      document.getElementById("defaultOpen").click();
+    </script>
+
+
+  </body>
+</html>

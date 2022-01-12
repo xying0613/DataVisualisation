@@ -1,0 +1,114 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "data": {"url": "https://raw.githubusercontent.com/hawxiaoying/DataVisualisation2/main/data/heatmap_region.csv"},
+  "width":850,
+  "height":150,
+  "encoding": {
+    "x": {
+      "field": "Entity",
+      "type": "nominal",
+      "axis": {
+        "labelAngle": 0,
+        "labelOverlap": false}
+    },
+    "y": {
+      "field": "Severity of Excessive Fat Accumulation",
+      "type": "nominal"
+    }
+  },
+
+  "config": {
+    "scale": {
+      "bandPaddingInner": 0,
+      "bandPaddingOuter": 0
+    },
+    "view": {"step": 40},
+    "range": {
+      "ramp": {
+        "scheme": "yellowgreenblue"
+      }
+    },
+    "axis": {
+      "domain": false
+    },
+    "legend": {
+      "disable": true
+    }
+  },
+
+  "layer":[
+    {
+      "params": [
+        {"name": "highlight", "select": {"type":"point", "on":"mouseover"}}      
+      ],
+      "mark": {"type": "rect", "strokeWidth": 2},
+      "encoding": {
+        "x": {
+          "field": "Entity",
+          "type": "nominal",
+          "title": null,
+          "axis": {
+            "labelFontSize": 15,
+            "labelAlign":"center",
+            "labelOverlap":false,
+            "labelPadding": 10
+          }
+        },
+        "y": {
+          "field": "Severity of Excessive Fat Accumulation",
+          "type": "nominal",
+          "title": null,
+          "axis": {
+            "labelFontSize": 15,
+            "labelOverlap":false,
+            "labelPadding": 10
+          }
+        },
+        "fill": {
+          "field": "Both",
+          "type": "quantitative",
+          "title": "Prevalence (%)"
+        },
+        "stroke": {
+          "condition": {
+            "param": "highlight",
+            "empty": false,
+            "value": "black"
+          },
+          "value": null
+        },
+        "opacity": {
+          "condition": {"param": "highlight", "value": 1},
+          "value": 0.5
+        },
+        "order": {
+          "condition": {
+            "param": "highlight",
+            "value": 1
+            }, 
+          "value": 0
+        }
+      }
+    },
+    {
+      "mark":{
+        "type":"text",
+        "fontSize":14
+      },
+      "encoding": {
+        "text":{
+          "field":"Both", 
+          "type": "quantitative"
+          },
+        "color": {
+          "condition": {"test": "datum['Both'] < 40", "value": "black"},
+          "value": "white"
+          },
+        "opacity":{
+          "condition": {"param": "highlight", "value": 1}, 
+          "value": 0
+        }
+      }
+    }
+  ]
+}
